@@ -20,6 +20,10 @@ export default function MyTable() {
     const subjectRef = useRef(null)
     const roleRef = useRef(null)
     const classRef = useRef(null)
+    const updateNameRef = useRef(null)
+    const updateSubjectRef = useRef(null)
+    const updateRoleRef = useRef(null)
+    const updateClassRef = useRef(null)
 
     useEffect(()=> {updateDatabase()},[])
 
@@ -36,16 +40,16 @@ export default function MyTable() {
         const studentsRef = db.child("students");
         for (let id of checked){
             studentsRef.child(id-1).update({
-                "fullName": nameRef.current.value || myData[id-1].fullName,
-                "subject": subjectRef.current.value || myData[id-1].subject,
-                "roll": roleRef.current.value || myData[id-1].roll,
-                "class": classRef.current.value || myData[id-1].class
+                "fullName": updateNameRef.current.value || myData[id-1].fullName,
+                "subject": updateSubjectRef.current.value || myData[id-1].subject,
+                "roll": updateRoleRef.current.value || myData[id-1].roll,
+                "class": updateClassRef.current.value || myData[id-1].class
             })
         }
-        nameRef.current.value=""
-        subjectRef.current.value=""
-        roleRef.current.value=""
-        classRef.current.value=""
+        updateNameRef.current.value=""
+        updateSubjectRef.current.value=""
+        updateRoleRef.current.value=""
+        updateClassRef.current.value=""
         setShowUpdate("none")
         setChecked([])
       }
@@ -115,16 +119,16 @@ export default function MyTable() {
                 <form style={{padding:"5px", display:showUpdate}} onSubmit={(e)=>updateItem(e)}>
                 <span>Please leave blank to keep unchanged</span><br/>
                   <div>
-                    <input ref={nameRef} placeholder="name" type="text" />
+                    <input ref={updateNameRef} placeholder="name" type="text" />
                   </div>
                   <div>
-                    <input ref={subjectRef} placeholder="subject" type="text" />
+                    <input ref={updateSubjectRef} placeholder="subject" type="text" />
                   </div>
                   <div>
-                    <input ref={roleRef} type="text" placeholder="role" />
+                    <input ref={updateRoleRef} type="text" placeholder="role" />
                   </div>
                   <div>
-                    <input ref={classRef} type="text" placeholder="class" />
+                    <input ref={updateClassRef} type="text" placeholder="class" />
                   </div>
                   <button>UPDATE ITEM</button>
                 </form>
